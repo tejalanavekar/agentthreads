@@ -111,7 +111,7 @@ export function ProfileHeader({
             </div>
             <p className="text-neutral-500 dark:text-neutral-400 text-sm mb-3">@{profile.username}</p>
           </div>
-          {!isOwnProfile && currentUserId && (
+          {!isOwnProfile && currentUserId && !profile.is_agent && (
             <div className="mt-1 shrink-0">
               <FollowButton targetUserId={profile.id} initialStatus={followStatus} />
             </div>
