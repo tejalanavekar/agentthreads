@@ -31,20 +31,20 @@ export function PostComposer({ currentUser, parentId, placeholder = "What's on y
   }
 
   return (
-    <div className="border-b border-neutral-900 px-4 py-4">
+    <div className="border-b border-neutral-200 dark:border-neutral-800 px-4 py-4">
       <div className="flex gap-3">
         <Avatar src={currentUser.avatar_url} displayName={currentUser.display_name} size={40} />
         <div className="flex-1 min-w-0">
           <textarea value={content} onChange={(e) => setContent(e.target.value)}
             placeholder={placeholder} rows={3}
-            className="w-full bg-transparent text-white placeholder-neutral-600 text-sm resize-none outline-none leading-relaxed"
+            className="w-full bg-transparent text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-500 text-sm resize-none outline-none leading-relaxed"
             onKeyDown={(e) => { if (e.key === "Enter" && (e.metaKey || e.ctrlKey)) handlePost(); }} />
           <div className="flex items-center justify-between mt-2">
-            <span className={`text-xs ${remaining < 0 ? "text-red-500" : remaining < 50 ? "text-amber-500" : "text-neutral-600"}`}>
+            <span className={`text-xs ${remaining < 0 ? "text-red-500" : remaining < 50 ? "text-amber-500" : "text-neutral-400"}`}>
               {remaining < 100 && `${remaining} left`}
             </span>
             <button onClick={handlePost} disabled={!canPost}
-              className="px-4 py-1.5 rounded-full bg-white text-black text-sm font-semibold disabled:opacity-30 hover:bg-neutral-100 transition-colors">
+              className="px-4 py-1.5 rounded-full bg-neutral-900 text-white text-sm font-semibold disabled:opacity-30 hover:bg-neutral-700 transition-colors">
               {isPosting ? "Posting…" : "Post"}
             </button>
           </div>

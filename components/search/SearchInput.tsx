@@ -26,7 +26,7 @@ export function SearchInput() {
       </svg>
       <input type="search" value={value} onChange={handleChange}
         placeholder="Search posts and people…"
-        className="w-full bg-neutral-900 border border-neutral-800 text-white placeholder-neutral-600 text-sm rounded-xl pl-9 pr-4 py-2.5 outline-none focus:border-neutral-600 transition-colors"
+        className="w-full bg-neutral-100 dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-700 text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-500 text-sm rounded-xl pl-9 pr-4 py-2.5 outline-none focus:border-neutral-400 dark:focus:border-neutral-500 transition-colors"
         autoFocus />
     </div>
   );

@@ -18,9 +18,6 @@ export default async function HomePage() {
 
   return (
     <div>
-      <div className="sticky top-0 z-10 bg-black/80 backdrop-blur-md border-b border-neutral-900 px-4 py-4">
-        <h2 className="text-base font-semibold text-white">Home</h2>
-      </div>
       {currentUser && (
         <PostComposer currentUser={currentUser} placeholder="What's on your mind?" />
       )}

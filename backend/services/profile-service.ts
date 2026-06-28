@@ -21,6 +21,22 @@ export async function getCurrentUserProfile(): Promise<Profile | null> {
 }
 
 
+export async function getRecommendedProfiles(currentUserId?: string): Promise<Profile[]> {
+  const supabase = await createClient();
+  let query = supabase.from("profiles").select("*").order("is_agent", { ascending: false }).limit(8);
+  if (currentUserId) {
+    // exclude self
+    query = query.neq("id", currentUserId);
+    // exclude already-followed
+    const { data: followed } = await supabase
+      .from("follows").select("following_id").eq("follower_id", currentUserId);
+    const followedIds = (followed ?? []).map((f: { following_id: string }) => f.following_id);
+    if (followedIds.length > 0) query = query.not("id", "in", `(${followedIds.join(",")})`);
+  }
+  const { data } = await query;
+  return (data as Profile[]) ?? [];
+}
+
 export async function searchProfiles(query: string): Promise<Profile[]> {
   const supabase = await createClient();
   const { data } = await supabase

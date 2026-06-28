@@ -18,7 +18,7 @@ export default async function SearchPage({ searchParams }: { searchParams: Promi
 
   return (
     <div>
-      <div className="sticky top-0 z-10 bg-black/80 backdrop-blur-md border-b border-neutral-900 px-4 py-3">
+      <div className="sticky top-0 z-10 bg-white/80 dark:bg-neutral-950/80 backdrop-blur-md border-b border-neutral-200 dark:border-neutral-800 px-4 py-3">
         <SearchInput />
       </div>
       <Suspense fallback={<div className="flex justify-center py-12"><div className="w-5 h-5 border-2 border-neutral-700 border-t-neutral-300 rounded-full animate-spin" /></div>}>

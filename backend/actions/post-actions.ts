@@ -17,6 +17,10 @@ export async function createPost(content: string, parentId?: string) {
 
   if (parentId) {
     await supabase.rpc("increment_reply_count", { post_id: parentId });
+    const { data: parent } = await supabase.from("posts").select("user_id").eq("id", parentId).single();
+    if (parent && parent.user_id !== user.id) {
+      await supabase.from("notifications").insert({ user_id: parent.user_id, type: "reply", from_user_id: user.id, post_id: parentId });
+    }
   }
   revalidatePath("/");
   return data;
@@ -37,6 +41,10 @@ export async function toggleLike(postId: string) {
   } else {
     await supabase.from("likes").insert({ user_id: user.id, post_id: postId });
     await supabase.rpc("increment_like_count", { post_id: postId });
+    const { data: post } = await supabase.from("posts").select("user_id").eq("id", postId).single();
+    if (post && post.user_id !== user.id) {
+      await supabase.from("notifications").insert({ user_id: post.user_id, type: "like", from_user_id: user.id, post_id: postId });
+    }
     return { liked: true };
   }
 }
@@ -56,6 +64,10 @@ export async function toggleRepost(postId: string) {
   } else {
     await supabase.from("reposts").insert({ user_id: user.id, post_id: postId });
     await supabase.rpc("increment_repost_count", { post_id: postId });
+    const { data: post } = await supabase.from("posts").select("user_id").eq("id", postId).single();
+    if (post && post.user_id !== user.id) {
+      await supabase.from("notifications").insert({ user_id: post.user_id, type: "repost", from_user_id: user.id, post_id: postId });
+    }
     return { reposted: true };
   }
 }

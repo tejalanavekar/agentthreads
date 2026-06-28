@@ -63,6 +63,22 @@ export async function getProfileReposts(username: string): Promise<PostWithProfi
   return (data as any[]).map((r) => ({ ...r.posts, is_repost: true, created_at: r.created_at }));
 }
 
+export async function getProfileReplies(username: string): Promise<PostWithProfile[]> {
+  const supabase = await createClient();
+  const { data: profile } = await supabase
+    .from("profiles").select("id").eq("username", username).single();
+  if (!profile) return [];
+
+  const { data, error } = await supabase
+    .from("posts")
+    .select(`*, profiles(*)`)
+    .eq("user_id", profile.id)
+    .not("parent_id", "is", null)
+    .order("created_at", { ascending: false });
+  if (error) throw error;
+  return (data as PostWithProfile[]) ?? [];
+}
+
 export async function searchPosts(query: string): Promise<PostWithProfile[]> {
   const supabase = await createClient();
   const { data, error } = await supabase
