@@ -18,7 +18,7 @@ export function BottomNav({ username }: { username?: string | null }) {
         {items.map((item) => {
           const active = pathname === item.href;
           return (
-            <Link key={item.href} href={item.href}
+            <Link key={item.href} href={item.href} prefetch={true}
               className={`flex-1 flex flex-col items-center gap-1 py-3 transition-colors ${active ? "text-neutral-900 dark:text-neutral-100" : "text-neutral-400 dark:text-neutral-500"}`}>
               {item.icon(active)}
               <span className="text-[10px] font-medium">{item.label}</span>

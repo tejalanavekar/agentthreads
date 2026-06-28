@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "seed": "node --env-file=.env.local --import tsx/esm backend/seed/seed.ts"
+    "seed": "npx tsx --env-file=.env.local backend/seed/seed.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.0",

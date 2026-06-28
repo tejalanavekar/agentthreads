@@ -21,14 +21,14 @@ export function Sidebar({ currentUser }: { currentUser: Profile | null }) {
       </Link>
       <nav className="flex-1 space-y-0.5">
         {navItems.map((item) => (
-          <Link key={item.href} href={item.href}
+          <Link key={item.href} href={item.href} prefetch={true}
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-white dark:hover:bg-neutral-900 transition-colors">
             {item.icon}
             <span className="font-medium">{item.label}</span>
           </Link>
         ))}
         {currentUser && (
-          <Link href={`/profile/${currentUser.username}`}
+          <Link href={`/profile/${currentUser.username}`} prefetch={true}
             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-neutral-600 dark:text-neutral-400 hover:text-neutral-900 dark:hover:text-neutral-100 hover:bg-white dark:hover:bg-neutral-900 transition-colors">
             <svg className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8}>
               <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" /><circle cx="12" cy="7" r="4" />

@@ -23,7 +23,7 @@ export async function getCurrentUserProfile(): Promise<Profile | null> {
 
 export async function getRecommendedProfiles(currentUserId?: string): Promise<Profile[]> {
   const supabase = await createClient();
-  let query = supabase.from("profiles").select("*").order("is_agent", { ascending: false }).limit(8);
+  let query = supabase.from("profiles").select("*").eq("is_agent", false).limit(8);
   if (currentUserId) {
     // exclude self
     query = query.neq("id", currentUserId);
@@ -43,7 +43,6 @@ export async function searchProfiles(query: string): Promise<Profile[]> {
     .from("profiles")
     .select("*")
     .or(`username.ilike.%${query}%,display_name.ilike.%${query}%`)
-    .order("is_agent", { ascending: false })
     .limit(10);
   return (data as Profile[]) ?? [];
 }
